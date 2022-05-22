@@ -238,7 +238,10 @@ def droste_effect(zoom_center_pixel_coords, zoom_factor, zoom_cutoff, source_ima
   if out_x_size == None:
     out_x_size, out_y_size = source_image.size
   else:
-    out_y_size = out_x_size/2
+    if out_x_size % 2 != 0:
+      raise ValueError('out_x_size must be divisible by 2')
+    # out_y_size must be int, not float
+    out_y_size = out_x_size // 2
   out_image = Image.new("RGB", (out_x_size, out_y_size))
   o_im = out_image.load()
 
